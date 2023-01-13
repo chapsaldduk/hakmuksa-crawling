@@ -24,3 +24,5 @@ yarn-error.log*
 
 # my file
 mariadb.js
+chromedriver.exe
+
