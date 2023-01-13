@@ -8,3 +8,5 @@ const conn = maria.createConnection({
   database: "",
 });
 module.exports = conn;
+
+console.log("test");
