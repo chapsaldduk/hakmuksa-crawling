@@ -1,5 +1,6 @@
-const { Builder, By, until } = require("selenium-webdriver");
-const chrome = require("selenium-webdriver/chrome");
+import { Builder, By, until } from "selenium-webdriver";
+import chrome from "selenium-webdriver/chrome.js";
+import resultInterface from "./resultInterface.js";
 
 /** to separate menu and title */
 async function getMenuTitle(string) {
@@ -20,81 +21,7 @@ async function crawling() {
     thu: [],
     fri: [],
   };
-  const result = {
-    hak: {
-      mon: {
-        breakfast: {
-          title: [],
-          menu: [],
-        },
-        lunch: {
-          title: [],
-          menu: [],
-        },
-        dinner: {
-          title: [],
-          menu: [],
-        },
-      },
-      tue: {
-        breakfast: {
-          title: [],
-          menu: [],
-        },
-        lunch: {
-          title: [],
-          menu: [],
-        },
-        dinner: {
-          title: [],
-          menu: [],
-        },
-      },
-      wed: {
-        breakfast: {
-          title: [],
-          menu: [],
-        },
-        lunch: {
-          title: [],
-          menu: [],
-        },
-        dinner: {
-          title: [],
-          menu: [],
-        },
-      },
-      thu: {
-        breakfast: {
-          title: [],
-          menu: [],
-        },
-        lunch: {
-          title: [],
-          menu: [],
-        },
-        dinner: {
-          title: [],
-          menu: [],
-        },
-      },
-      fri: {
-        breakfast: {
-          title: [],
-          menu: [],
-        },
-        lunch: {
-          title: [],
-          menu: [],
-        },
-        dinner: {
-          title: [],
-          menu: [],
-        },
-      },
-      date: "",
-    },
-  };
+  const result = resultInterface;
   const driver = await new Builder()
     .forBrowser("chrome")
     .setChromeOptions(
@@ -120,6 +47,8 @@ async function crawling() {
     const keys = Object.keys(crawlingResult); // ['mon', 'tue', 'wed', 'thu', 'fri']
     let i = 0;
     let j = 0;
+
+    // Todo: loop?
     while (1) {
       crawlingResult[keys[j]].push(await searchInput[i].getText());
       i++;
@@ -131,7 +60,7 @@ async function crawling() {
         break;
       }
     }
-    result_keys = Object.keys(result.hak); // [ 'mon', 'tue', 'wed', 'thu', 'fri' ]
+    const result_keys = Object.keys(result.hak); // [ 'mon', 'tue', 'wed', 'thu', 'fri' ]
 
     for (let i = 0; i < keys.length; i++) {
       // i -> select day
@@ -177,12 +106,12 @@ async function crawling() {
     }
 
     // print result
-    // console.log("result print");
-    // const result_hak_keys = Object.keys(result.hak);
-    // for (let i = 0; i < result_hak_keys.length; i++) {
-    //   console.log("\n" + result_hak_keys[i]);
-    //   console.log(result.hak[result_hak_keys[i]]);
-    // }
+    console.log("result print");
+    const result_hak_keys = Object.keys(result.hak);
+    for (let i = 0; i < result_hak_keys.length; i++) {
+      console.log("\n" + result_hak_keys[i]);
+      console.log(result.hak[result_hak_keys[i]]);
+    }
 
     return result;
   }
@@ -191,7 +120,6 @@ async function crawling() {
 async function main() {
   // crawling();
   const result = await crawling();
-  console.log(result.hak.mon);
 }
 
 main();

@@ -2,6 +2,7 @@
   "name": "hak_crawling",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "main": "sangji.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
