@@ -1,6 +1,7 @@
 import { Builder, By, until } from "selenium-webdriver";
 import chrome from "selenium-webdriver/chrome.js";
 import resultInterface from "./resultInterface.js";
+import fs from "fs";
 
 /** to separate menu and title */
 async function getMenuTitle(string) {
@@ -106,20 +107,25 @@ async function crawling() {
     }
 
     // print result
-    console.log("result print");
-    const result_hak_keys = Object.keys(result.hak);
-    for (let i = 0; i < result_hak_keys.length; i++) {
-      console.log("\n" + result_hak_keys[i]);
-      console.log(result.hak[result_hak_keys[i]]);
-    }
+    // console.log("result print");
+    // const result_hak_keys = Object.keys(result.hak);
+    // for (let i = 0; i < result_hak_keys.length; i++) {
+    //   console.log("\n" + result_hak_keys[i]);
+    //   console.log(result.hak[result_hak_keys[i]]);
+    // }
 
     return result;
   }
 }
 
 async function main() {
-  // crawling();
   const result = await crawling();
+  const jsonData = JSON.stringify(result);
+  fs.writeFile(`상지대학교 ${result.hak.date}.txt`, jsonData, function (err) {
+    if (err) {
+      console.log(err);
+    }
+  });
 }
 
 main();
