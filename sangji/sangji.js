@@ -121,11 +121,15 @@ async function crawling() {
 async function main() {
   const result = await crawling();
   const jsonData = JSON.stringify(result);
-  fs.writeFile(`상지대학교 ${result.hak.date}.txt`, jsonData, function (err) {
-    if (err) {
-      console.log(err);
+  fs.writeFile(
+    `./sangji/hak/상지대학교 ${result.hak.date} 학식.json`,
+    jsonData,
+    function (err) {
+      if (err) {
+        console.log(err);
+      }
     }
-  });
+  );
 }
 
 main();
