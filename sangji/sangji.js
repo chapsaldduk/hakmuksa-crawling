@@ -40,7 +40,16 @@ async function crawling() {
   await driver.wait(until.elementLocated(By.className("obj")));
   let searchInput = await driver.findElements(By.className(`obj`));
   let crawlingDate = await driver.findElement(By.id("calTitle")).getText();
-  result.hak.date = crawlingDate.slice(0, crawlingDate.indexOf("일", 9) + 1);
+  result.date = crawlingDate.slice(0, crawlingDate.indexOf("일", 9) + 1);
+
+  const days = [];
+  for (let n = 2; n < 7; n++) {
+    const day = `/html/body/div[5]/div/div/div[2]/div/div[2]/div[1]/table/thead/tr/th[${n}]/div/em`;
+    let mealDay = await driver.findElement(By.xpath(day)).getText();
+    mealDay = mealDay.slice(1, mealDay.length - 1);
+    days.push(mealDay);
+  }
+  console.log(days);
 
   if (searchInput === null) {
     return 1;
@@ -61,13 +70,17 @@ async function crawling() {
         break;
       }
     }
-    const result_keys = Object.keys(result.hak); // [ 'mon', 'tue', 'wed', 'thu', 'fri' ]
+
+    /** [ 'mon', 'tue', 'wed', 'thu', 'fri' ] */
+    const result_keys = Object.keys(result.hak);
 
     for (let i = 0; i < keys.length; i++) {
       // i -> select day
       for (let j = 0; j < crawlingResult[keys[i]].length; j++) {
         // j -> select time
-        const result_keys_keys = Object.keys(result.hak[result_keys[i]]); // [ 'breakfast', 'lunch', 'dinner' ]
+
+        /**  [ 'breakfast', 'lunch', 'dinner', 'date' ] */
+        const result_keys_keys = Object.keys(result.hak[result_keys[i]]);
         if (crawlingResult[keys[i]][j] === "") {
           continue;
         }
@@ -106,14 +119,17 @@ async function crawling() {
       }
     }
 
-    // print result
-    // console.log("result print");
-    // const result_hak_keys = Object.keys(result.hak);
-    // for (let i = 0; i < result_hak_keys.length; i++) {
-    //   console.log("\n" + result_hak_keys[i]);
-    //   console.log(result.hak[result_hak_keys[i]]);
-    // }
+    for (let i = 0; i < result_keys.length; i++) {
+      result.hak[result_keys[i]].date = days[i];
+    }
 
+    // print result
+    console.log("result print");
+    const result_hak_keys = Object.keys(result.hak);
+    for (let i = 0; i < result_hak_keys.length; i++) {
+      console.log("\n" + result_hak_keys[i]);
+      console.log(result.hak[result_hak_keys[i]]);
+    }
     return result;
   }
 }
@@ -122,7 +138,7 @@ async function main() {
   const result = await crawling();
   const jsonData = JSON.stringify(result);
   fs.writeFile(
-    `./sangji/hak/상지대학교 ${result.hak.date} 학식.json`,
+    `./sangji/hak/상지대학교 ${result.date} 학식.js`,
     jsonData,
     function (err) {
       if (err) {

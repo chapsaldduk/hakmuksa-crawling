@@ -13,6 +13,7 @@ const resultInterface = {
         title: [],
         menu: [],
       },
+      date: "",
     },
     tue: {
       breakfast: {
@@ -27,6 +28,7 @@ const resultInterface = {
         title: [],
         menu: [],
       },
+      date: "",
     },
     wed: {
       breakfast: {
@@ -41,6 +43,7 @@ const resultInterface = {
         title: [],
         menu: [],
       },
+      date: "",
     },
     thu: {
       breakfast: {
@@ -55,6 +58,7 @@ const resultInterface = {
         title: [],
         menu: [],
       },
+      date: "",
     },
     fri: {
       breakfast: {
@@ -69,9 +73,10 @@ const resultInterface = {
         title: [],
         menu: [],
       },
+      date: "",
     },
-    date: "",
   },
+  date: "",
 };
 
 export default resultInterface;

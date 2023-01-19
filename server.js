@@ -1,6 +1,8 @@
 import express from "express";
-import router from "router";
-import sangji from "./sangji/sangji.js";
+// import router from "router";
+// import sangji from "./sangji/sangji.js";
+import data from "./sangji/hak/상지대학교 01월 16일 ~ 01월 20일 학식.js";
+
 const app = express();
 
 const port = 8080;
@@ -15,8 +17,6 @@ app.get("/", function (req, res) {
 });
 
 app.get("/sangji", async function (req, res) {
-  res.send("Sangji University Meal Schedule");
-  const result = sangji.hak;
-  console.log(result);
-  res.json(result);
+  console.log("Sangji University meal");
+  res.json(data);
 });
