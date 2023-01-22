@@ -138,7 +138,7 @@ async function main() {
   const result = await crawling();
   const jsonData = JSON.stringify(result);
   fs.writeFile(
-    `./sangji/hak/상지대학교 ${result.date} 학식.js`,
+    `./sangji/hak/상지대학교 ${result.date} 학식.json`,
     jsonData,
     function (err) {
       if (err) {
