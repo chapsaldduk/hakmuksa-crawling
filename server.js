@@ -1,7 +1,10 @@
 import express from "express";
+import { readFile } from "fs/promises";
 // import router from "router";
-// import sangji from "./sangji/sangji.js";
-import data from "./sangji/hak/상지대학교 01월 16일 ~ 01월 20일 학식.js";
+
+const data = JSON.parse(
+  await readFile(new URL("./sangji/hak/01.23~.json", import.meta.url))
+);
 
 const app = express();
 
