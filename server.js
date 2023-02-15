@@ -9,10 +9,10 @@ const data = JSON.parse(
 
 const app = express();
 
-const port = 8080;
+const port = 8000;
 
 app.listen(port, function () {
-  console.log("listening on 8080");
+  console.log("listening on 8000");
 });
 
 app.get("/", function (req, res) {

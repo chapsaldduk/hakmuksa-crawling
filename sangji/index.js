@@ -138,7 +138,10 @@ async function main() {
   const result = await crawling();
   const jsonData = JSON.stringify(result);
   fs.writeFile(
-    `./sangji/hak/${result.hak.mon.date}~.json`,
+    `./sangji/hak/${result.hak.mon.date.slice(
+      5,
+      7
+    )}.${result.hak.mon.date.slice(8, 10)}~.json`,
     jsonData,
     function (err) {
       if (err) {
